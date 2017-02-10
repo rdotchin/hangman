@@ -2,10 +2,7 @@
 <html>
 <head>
 	<title>Stranger Things Hangman</title>
-	<!--reset CSS link-->
-	<!-- 	 -->
-	<!--style CSS link-->
-	<!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+
 </head>
 
 <body class="wrapper">
@@ -25,16 +22,18 @@
 			<section id="game">
 				<p> Press Any Key to Get Started!</p>
 
-				<p id="wins">wins</p>
+				<p id="wins"></p>
+				<p id="loss"></p>
 
-				<p>Current Word</p>
+				<p>Current Word:</p>
 
 				<!--make letters appear when the correct letter is guessed.  Amount of dashes will change with new word-->
 				<p id="dash"></p>
 
 				<p id="guessesLeft">Number of Guesses Remaining</p>
-
-				<p id="WrongGuess">Letters Aready Guessed</p>
+				
+				<p>Letters Aready Guessed</p>
+				<p id="lettersGuessed"></p>
 
 				<script type="text/javascript" src="assets/javascript/game.js"></script>
 

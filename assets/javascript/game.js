@@ -1,94 +1,126 @@
-var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+//=========================GLOBAL VARIABLES=======================//    
 var wins = 0;
 var loss = 0;
-var guessLeft = 13;
+var guessLeft = 9;
 var wordBank = ["stranger", "orlando", "now", "nobody", "nowhere", "not"];
+var currentWord;
 var dashBank = [];
-var guesses = [];
-var splitArray = [];
+var wrongLetters = [];
+var letters= [];
 
-
-/*This will produce a random number between 0-26, this will be used 
-to choose a word out of the alphabet array*/
-function randomNumber() {
-  var number = Math.floor(Math.random(number) * 6);
-    return number; 
-};
-
-//randomNumber() test
-/*var numberTest = randomNumber();
-console.log(numberTest);*/
-
-
-//This will take the number from randomNumber and retrieve that word from the wordBank array
-function wordChoice() {
-        var num = randomNumber();
-        var word = wordBank[num];
-       
-        console.log(window.word);
-        return word;
-}
-
-//wordChoice() test
-/*var wordTest = wordChoice();
-console.log(wordTest);*/
-
-//this will replace the letters of the word with dashes
-function dashes(dash) {
-    /*var dash = [];*/  
-    /*var word = wordChoice();*/  
-    for(var i = 0; i < word.length; i++) {
-        dashBank.push('_'); 
-        console.log(word);
+//========================FUNCTIONS================================//
+function init(){
+    //get random number that is the lenght of the wordBank array 
+    var randomNumber = Math.floor(Math.random() * wordBank.length);
+    //use random number to pull word out of the array
+    currentWord = wordBank[randomNumber];
+    //split current word into indivdual letters 
+    letters = currentWord.split('');
+    console.log(letters);
+    //reset the users guesses, dashes array and letters guessed array
+    reset();
+    //loop through length of letters and push dashes into array
+    for(var i = 0; i<letters.length; i++){
+        dashBank.push('-');
     }
-    return dashBank;
+    console.log(dashBank);
 
-}
-//dashes() test
-var dashTest = dashes();
-console.log(dashTest);
-
-//this will split the string into an array of individual letters
-function splitString(word) {
-    splitArray = word.split(['']);
-    return splitArray;
+    //add win, loss, guesses left, dashes and wrong letters to html page
+    document.getElementById("wins").innerHTML = "wins: " + wins;
+    document.getElementById('loss').innerHTML = "loss: " + loss;
+    document.getElementById('dash').innerHTML = dashBank.join(' ');
+    document.getElementById('guessesLeft').innerHTML = "Guesses Remaining: " + guessLeft;
+    
 }
 
-var splitStringTest = splitString();
-console.log(splitStringTest);
+function checkGuess(userguess){
+    //loop through current word letters to see if userGuess matches
+    var correctGuess = false;
+      for(var i = 0; i<letters.length; i++){
+            if(userguess == letters[i]) {
+            correctGuess = true;
+            }
+      } 
+            
+        /*if correctGuess is true it will loop through the letters to see which is correct 
+        and replace the dash with the correct letter*/
+      if(correctGuess){
+            for(var i = 0; i<letters.length; i++) { 
+                  //userguess replaced dashes with the correct letter
+                  if(userguess == letters[i]){
+                        dashBank[i] = userguess;
+                        
+                  } 
+            }
+            //display updated dashes on html page
+            document.getElementById('dash').innerHTML = dashBank.join(' ');
+            //check if the user completed the word
+            checkWin(dashBank); 
+            console.log(dashBank);
+      } else {
+            wrong(userguess);
+      } 
+        
+
+}
+
+init();
+
+//Reset the game by setting guesses and wrongLetters
+function reset() {
+    guessLeft = 13;
+    wrongLetters = [];
+    dashBank = [];
+}
+
+function checkWin(word){
+      //check if dashBank is equal to the current word
+      //if true the user has won, wins increase 1 and the game resets
+      if(word.join('') === currentWord) {
+            wins++;
+            alert("you won!");
+            init();
+      }
+}
+/*if letter guessed is wrong the userGuess decreases by 1 and checks to see if the total equals 0
+which results in the user losing the game*/
+function wrong(userguess){
+    guessLeft--;
+    //push the users wrong guess to the wrongLetters array
+    wrongLetters.push(userguess);
+    //update the wrongLetters array on the html page
+    document.getElementById('lettersGuessed').innerHTML =wrongLetters.join(' ');
+    //update the guesses left on the html page
+    document.getElementById('guessesLeft').innerHTML = "Guesses Remaining: " + guessLeft;
+    if(guessLeft === 0){
+        console.log("you lost");
+        loss++;
+        init();
+    }
+}
 
 
-function init() {
-	wordChoice();
-	dashes();
-	/*splitString();*/
+
+//function to check if a value exists in an array
+function alreadyGuessed(array, guess){
+      return array.indexOf(guess) > -1;
+}
+
+document.onkeyup = function(event){
+      //gets the letter from the keyCode and makes it a lowercase string
+      var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+      
+      //check if letter exists in wrongLetters or wordBank arrays
+      if(alreadyGuessed(wrongLetters, userGuess) || alreadyGuessed(wordBank, userGuess)){
+            alert("already guessed");
+      } 
+      //check if the key typed is not a letter
+      else if (event.keyCode >= 48 && event.keyCode <= 57) {
+            alert("Enter a letter");
+      } 
+      //if it is a letter that has not been guessed then check if it is correct
+      else {
+            console.log(userGuess);
+            checkGuess(userGuess);
+      }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
