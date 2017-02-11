@@ -68,7 +68,7 @@ init();
 
 //Reset the game by setting guesses and wrongLetters
 function reset() {
-    guessLeft = 13;
+    guessLeft = 9;
     wrongLetters = [];
     dashBank = [];
 }
@@ -109,15 +109,14 @@ function alreadyGuessed(array, guess){
 document.onkeyup = function(event){
       //gets the letter from the keyCode and makes it a lowercase string
       var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-      
-      //check if letter exists in wrongLetters or wordBank arrays
-      if(alreadyGuessed(wrongLetters, userGuess) || alreadyGuessed(wordBank, userGuess)){
-            alert("already guessed");
-      } 
       //check if the key typed is not a letter
-      else if (event.keyCode >= 48 && event.keyCode <= 57) {
-            alert("Enter a letter");
+      var letterCheck = event.keyCode >= 48 && event.keyCode <= 57;
+      //check if letter exists in wrongLetters or wordBank arrays
+      if(alreadyGuessed(wrongLetters, userGuess) || alreadyGuessed(wordBank, userGuess) || letterCheck){
+            
       } 
+      
+     
       //if it is a letter that has not been guessed then check if it is correct
       else {
             console.log(userGuess);
