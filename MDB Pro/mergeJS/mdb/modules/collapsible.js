@@ -1,7 +1,7 @@
 /* COLLAPSIBLE */
 
-(function ($) {
-    $.fn.collapsible = function (options) {
+(function($) {
+    $.fn.collapsible = function(options) {
         var defaults = {
             accordion: undefined
         };
@@ -9,7 +9,7 @@
         options = $.extend(defaults, options);
 
 
-        return this.each(function () {
+        return this.each(function() {
 
             var $this = $(this);
 
@@ -39,7 +39,7 @@
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function () {
+                        complete: function() {
                             $(this).css('height', '');
                         }
                     });
@@ -48,7 +48,7 @@
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function () {
+                        complete: function() {
                             $(this).css('height', '');
                         }
                     });
@@ -59,7 +59,7 @@
                     duration: 350,
                     easing: "easeOutQuart",
                     queue: false,
-                    complete: function () {
+                    complete: function() {
                         $(this).css('height', '');
                     }
                 });
@@ -77,7 +77,7 @@
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function () {
+                        complete: function() {
                             $(this).css('height', '');
                         }
                     });
@@ -86,7 +86,7 @@
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function () {
+                        complete: function() {
                             $(this).css('height', '');
                         }
                     });
@@ -122,7 +122,7 @@
             if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
                 // Add click handler to only direct collapsible header children
                 $panel_headers = $this.find('> li > .collapsible-header');
-                $panel_headers.on('click.collapse', function (e) {
+                $panel_headers.on('click.collapse', function(e) {
                     var element = $(e.target);
 
                     if (isChildrenOfPanelHeader(element)) {
@@ -135,9 +135,9 @@
                 // Open first active
                 accordionOpen($panel_headers.filter('.active').first());
             } else { // Handle Expandables
-                $panel_headers.each(function () {
+                $panel_headers.each(function() {
                     // Add click handler to only direct collapsible header children
-                    $(this).on('click.collapse', function (e) {
+                    $(this).on('click.collapse', function(e) {
                         var element = $(e.target);
                         if (isChildrenOfPanelHeader(element)) {
                             element = getPanelHeader(element);
@@ -156,7 +156,7 @@
         });
     };
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.collapsible').collapsible();
     });
 }(jQuery));
