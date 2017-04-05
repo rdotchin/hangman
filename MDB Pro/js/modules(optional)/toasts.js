@@ -11,9 +11,9 @@
  * Project: https://github.com/CodeSeven/toastr
  */
 /* global define */
-(function (define) {
-    define(['jquery'], function ($) {
-        return (function () {
+(function(define) {
+    define(['jquery'], function($) {
+        return (function() {
             var $container;
             var listener;
             var toastId = 0;
@@ -54,7 +54,9 @@
             }
 
             function getContainer(options, create) {
-                if (!options) { options = getOptions(); }
+                if (!options) {
+                    options = getOptions();
+                }
                 $container = $('#' + options.containerId);
                 if ($container.length) {
                     return $container;
@@ -101,7 +103,9 @@
 
             function clear($toastElement, clearOptions) {
                 var options = getOptions();
-                if (!$container) { getContainer(options); }
+                if (!$container) {
+                    getContainer(options);
+                }
                 if (!clearToast($toastElement, options, clearOptions)) {
                     clearContainer(options);
                 }
@@ -109,7 +113,9 @@
 
             function remove($toastElement) {
                 var options = getOptions();
-                if (!$container) { getContainer(options); }
+                if (!$container) {
+                    getContainer(options);
+                }
                 if ($toastElement && $(':focus', $toastElement).length === 0) {
                     removeToast($toastElement);
                     return;
@@ -121,20 +127,22 @@
 
             // internal functions
 
-            function clearContainer (options) {
+            function clearContainer(options) {
                 var toastsToClear = $container.children();
                 for (var i = toastsToClear.length - 1; i >= 0; i--) {
                     clearToast($(toastsToClear[i]), options);
                 }
             }
 
-            function clearToast ($toastElement, options, clearOptions) {
+            function clearToast($toastElement, options, clearOptions) {
                 var force = clearOptions && clearOptions.force ? clearOptions.force : false;
                 if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
                     $toastElement[options.hideMethod]({
                         duration: options.hideDuration,
                         easing: options.hideEasing,
-                        complete: function () { removeToast($toastElement); }
+                        complete: function() {
+                            removeToast($toastElement);
+                        }
                     });
                     return true;
                 }
@@ -193,7 +201,9 @@
             }
 
             function publish(args) {
-                if (!listener) { return; }
+                if (!listener) {
+                    return;
+                }
                 listener(args);
             }
 
@@ -201,12 +211,14 @@
                 var options = getOptions();
                 var iconClass = map.iconClass || options.iconClass;
 
-                if (typeof (map.optionsOverride) !== 'undefined') {
+                if (typeof(map.optionsOverride) !== 'undefined') {
                     options = $.extend(options, map.optionsOverride);
                     iconClass = map.optionsOverride.iconClass || iconClass;
                 }
 
-                if (shouldExit(options, map)) { return; }
+                if (shouldExit(options, map)) {
+                    return;
+                }
 
                 toastId++;
 
@@ -273,7 +285,7 @@
                     }
 
                     if (options.closeButton && $closeElement) {
-                        $closeElement.click(function (event) {
+                        $closeElement.click(function(event) {
                             if (event.stopPropagation) {
                                 event.stopPropagation();
                             } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
@@ -284,7 +296,7 @@
                     }
 
                     if (options.onclick) {
-                        $toastElement.click(function (event) {
+                        $toastElement.click(function(event) {
                             options.onclick(event);
                             hideToast();
                         });
@@ -294,9 +306,11 @@
                 function displayToast() {
                     $toastElement.hide();
 
-                    $toastElement[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing, complete: options.onShown}
-                    );
+                    $toastElement[options.showMethod]({
+                        duration: options.showDuration,
+                        easing: options.showEasing,
+                        complete: options.onShown
+                    });
 
                     if (options.timeOut > 0) {
                         intervalId = setTimeout(hideToast, options.timeOut);
@@ -373,7 +387,7 @@
                     return $toastElement[method]({
                         duration: duration,
                         easing: easing,
-                        complete: function () {
+                        complete: function() {
                             removeToast($toastElement);
                             if (options.onHidden && response.state !== 'hidden') {
                                 options.onHidden();
@@ -396,9 +410,10 @@
                 function stickAround() {
                     clearTimeout(intervalId);
                     progressBar.hideEta = 0;
-                    $toastElement.stop(true, true)[options.showMethod](
-                        {duration: options.showDuration, easing: options.showEasing}
-                    );
+                    $toastElement.stop(true, true)[options.showMethod]({
+                        duration: options.showDuration,
+                        easing: options.showEasing
+                    });
                 }
 
                 function updateProgress() {
@@ -412,7 +427,9 @@
             }
 
             function removeToast($toastElement) {
-                if (!$container) { $container = getContainer(); }
+                if (!$container) {
+                    $container = getContainer();
+                }
                 if ($toastElement.is(':visible')) {
                     return;
                 }
@@ -426,7 +443,7 @@
 
         })();
     });
-}(typeof define === 'function' && define.amd ? define : function (deps, factory) {
+}(typeof define === 'function' && define.amd ? define : function(deps, factory) {
     if (typeof module !== 'undefined' && module.exports) { //Node
         module.exports = factory(require('jquery'));
     } else {

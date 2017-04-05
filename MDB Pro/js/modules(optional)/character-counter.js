@@ -1,9 +1,9 @@
 /* CHARACTER COUNTER */
 
-(function ($) {
+(function($) {
 
-    $.fn.characterCounter = function () {
-        return this.each(function () {
+    $.fn.characterCounter = function() {
+        return this.each(function() {
 
             var itHasLengthAttribute = $(this).attr('length') !== undefined;
 
@@ -53,7 +53,7 @@
         }
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('input, textarea').characterCounter();
     });
 

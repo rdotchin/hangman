@@ -3,7 +3,7 @@
  * MDB Autocomplete Plugin
  */
 
-$.fn.mdb_autocomplete = function (options) {
+$.fn.mdb_autocomplete = function(options) {
 
     // Default options
     var defaults = {
@@ -13,7 +13,7 @@ $.fn.mdb_autocomplete = function (options) {
     // Get options
     options = $.extend(defaults, options);
 
-    return this.each(function () {
+    return this.each(function() {
 
         // text input
         var $input = $(this);
@@ -29,7 +29,7 @@ $.fn.mdb_autocomplete = function (options) {
         };
 
         // Listen if key was pressed
-        $input.on('keyup', function (e) {
+        $input.on('keyup', function(e) {
 
             // get value from input
             var q = $input.val();
@@ -62,7 +62,7 @@ $.fn.mdb_autocomplete = function (options) {
             }
         });
 
-        $autocomplete.on('click', 'li', function () {
+        $autocomplete.on('click', 'li', function() {
 
             // Set input value after click
             $input.val($(this).text());
@@ -71,7 +71,7 @@ $.fn.mdb_autocomplete = function (options) {
             $autocomplete.empty();
         });
 
-        $('.mdb-autocomplete-clear').on('click', function (e) {
+        $('.mdb-autocomplete-clear').on('click', function(e) {
             e.preventDefault();
             $input.val('');
             $(this).css('visibility', 'hidden');
