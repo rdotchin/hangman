@@ -10,27 +10,24 @@ var letters= [];
 
 //========================FUNCTIONS================================//
 function init(){
-    //get random number that is the lenght of the wordBank array 
+    //get random number that is the length of the wordBank array
     var randomNumber = Math.floor(Math.random() * wordBank.length);
     //use random number to pull word out of the array
     currentWord = wordBank[randomNumber];
     //split current word into indivdual letters 
     letters = currentWord.split('');
-    console.log(letters);
     //reset the users guesses, dashes array and letters guessed array
     reset();
     //loop through length of letters and push dashes into array
     for(var i = 0; i<letters.length; i++){
         dashBank.push('-');
     }
-    console.log(dashBank);
 
     //add win, loss, guesses left, dashes and wrong letters to html page
     document.getElementById("wins").innerHTML = "wins: " + wins;
     document.getElementById('loss').innerHTML = "loss: " + loss;
     document.getElementById('dash').innerHTML = dashBank.join(' ');
     document.getElementById('guessesLeft').innerHTML = "Guesses Remaining: " + guessLeft;
-    
 }
 
 function checkGuess(userguess){
